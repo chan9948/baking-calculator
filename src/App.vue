@@ -3,12 +3,7 @@
     <div>
       Target Total Amount:
       <div class="inputGroup">
-        <input
-          type="number"
-          min="0"
-          step="0.1"
-          v-model.number="targetTotalAmount"
-        />
+        <input type="number" min="0" step="0.1" v-model.number="targetTotalAmount" />
         {{ unit }}
       </div>
     </div>
@@ -27,33 +22,23 @@
         <td>100%</td>
         <td>
           <div class="inputGroup">
-            <input
-              type="number"
-              min="0"
-              step="0.1"
-              v-model.number="mainAmount"
-            />
+            <input type="number" min="0" step="0.1" v-model.number="mainAmount" />
             {{ unit }}
           </div>
         </td>
         <td>
-          {{ getMainFinalAmount > 0 ? getMainFinalAmount.toFixed(1) : 0
-          }}{{ unit }}
+          {{ getMainFinalAmount > 0 ? getMainFinalAmount.toFixed(1) : 0 }}{{ unit }}
         </td>
       </tr>
       <ListItem
         v-for="(item, index) in items"
+        v-model="items[index]"
         :key="index"
         :unit="unit"
         :mainAmount="getMainAmount"
         :targetTotalAmount="getTargetTotalAmount"
         :mainFinalAmount="getMainFinalAmount"
-        :deleteItem="
-          () => {
-            deleteItem(index);
-          }
-        "
-        v-model="items[index]"
+        :deleteItem="deleteItem.bind(index)"
       >
       </ListItem>
       <br />
