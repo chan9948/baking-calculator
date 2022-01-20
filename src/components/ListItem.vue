@@ -1,9 +1,20 @@
 <template>
   <tr>
     <td><button @click="deleteItem">X</button></td>
-    <td><input type="text" v-model="value.itemName" /></td>
+    <td>
+      <input
+        type="text"
+        :value="modelValue.itemName"
+        @input="updateValue('itemName', $event.target.value)"
+      />
+    </td>
     <td class="inputGroup">
-      <input min="0" type="number" v-model.number="value.percentage" />%
+      <input
+        min="0"
+        type="number"
+        :value="modelValue.percentage"
+        @input="updateValue('percentage', Number($event.target.value))"
+      />%
     </td>
     <td>{{ getAmount }}{{ unit }}</td>
     <td>{{ getFinalAmount }}{{ unit }}</td>
@@ -14,7 +25,7 @@
 export default {
   name: "ListItem",
   props: {
-    value: Object,
+    modelValue: Object,
     unit: String,
     mainAmount: Number,
     targetTotalAmount: Number,
@@ -23,12 +34,17 @@ export default {
   },
   computed: {
     getAmount: function () {
-      var amount = (this.value.percentage * this.mainAmount) / 100;
+      var amount = (this.modelValue.percentage * this.mainAmount) / 100;
       return amount > 0 ? amount.toFixed(1) : 0;
     },
     getFinalAmount: function () {
-      var result = (this.value.percentage / 100) * this.mainFinalAmount;
+      var result = (this.modelValue.percentage / 100) * this.mainFinalAmount;
       return result > 0 ? result.toFixed(1) : 0;
+    },
+  },
+  methods: {
+    updateValue: function (key, value) {
+      this.$emit("update:modelValue", { ...this.modelValue, [key]: value });
     },
   },
 };
