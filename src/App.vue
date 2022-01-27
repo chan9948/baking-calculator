@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <!-- <Chart :items="[{itemName: mainItemName, percentage: 100,},...items]"/> -->
+    <br/>
     <div>
       Target Total Amount:
       <div class="inputGroup">
@@ -49,11 +51,13 @@
 
 <script>
 import ListItem from "./components/ListItem";
+// import Chart from './components/Chart';
 
 export default {
   name: "App",
   components: {
     ListItem,
+    // Chart,
   },
   data() {
     return {
@@ -61,7 +65,7 @@ export default {
       targetTotalAmount: 500,
 
       mainItemName: "main",
-      mainAmount: 100,
+      mainAmount: 150,
 
       items: [
         {
